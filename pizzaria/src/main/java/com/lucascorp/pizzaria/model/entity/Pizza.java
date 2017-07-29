@@ -34,7 +34,7 @@ public class Pizza {
 	private CategoriaDePizza categoria;
 
 	@ManyToMany
-	private Set<Ingredientes> ingredientes;
+	private Set<Ingrediente> ingredientes;
 
 	public Long getId() {
 		return Id;
@@ -68,11 +68,11 @@ public class Pizza {
 		this.categoria = categoria;
 	}
 
-	public Set<Ingredientes> getIngredientes() {
+	public Set<Ingrediente> getIngredientes() {
 		return ingredientes;
 	}
 
-	public void setIngredientes(Set<Ingredientes> ingredientes) {
+	public void setIngredientes(Set<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
 

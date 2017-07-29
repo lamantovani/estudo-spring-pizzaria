@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.lucascorp.pizzaria.model.enumerador.CategoriaDeIngrediente;
 
 @Entity
-public class Ingredientes {
+public class Ingrediente {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -69,7 +69,7 @@ public class Ingredientes {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ingredientes other = (Ingredientes) obj;
+		Ingrediente other = (Ingrediente) obj;
 		if (categoria != other.categoria)
 			return false;
 		if (id == null) {
