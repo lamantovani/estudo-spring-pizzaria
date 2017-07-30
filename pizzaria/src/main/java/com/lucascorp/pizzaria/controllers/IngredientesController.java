@@ -3,15 +3,18 @@ package com.lucascorp.pizzaria.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.lucascorp.pizzaria.exceptions.IngredienteInvalidoException;
 import com.lucascorp.pizzaria.model.entity.Ingrediente;
 import com.lucascorp.pizzaria.model.enumerador.CategoriaDeIngrediente;
 import com.lucascorp.pizzaria.model.repository.IngredienteRepository;
@@ -38,20 +41,59 @@ public class IngredientesController {
 			@Valid
 			@ModelAttribute Ingrediente ingrediente,
 			BindingResult bindingResult,
-			RedirectAttributes redirectAttributes) {
+			Model model) {
 		
 		if (bindingResult.hasErrors()) {
 			
-			FieldError error = bindingResult.getFieldErrors().get(0);
-			redirectAttributes.addFlashAttribute("mensagemErro", "Não foi possível salvar o Ingrediente " + error.getField() 
-			+  " " + error.getDefaultMessage());
+			throw new IngredienteInvalidoException();
+			
+//			FieldError error = bindingResult.getFieldErrors().get(0);
+//			redirectAttributes.addFlashAttribute("mensagemErro", "Não foi possível salvar o Ingrediente " + error.getField() 
+//			+  " " + error.getDefaultMessage());
 			
 		} else {
 			ingredienteRepository.save(ingrediente);	
-			redirectAttributes.addFlashAttribute("mensagemInfo", "Ingrediente salvo com sucesso");
+//			redirectAttributes.addFlashAttribute("mensagemInfo", "Ingrediente salvo com sucesso");
 		}
 		
-		return "redirect:/app/ingredientes";
+		model.addAttribute("ingredientes", ingredienteRepository.findAll());
+		model.addAttribute("categorias", CategoriaDeIngrediente.values());
+		
+//		return "redirect:/app/ingredientes";
+		return "ingrediente/tabela-ingredientes";
 	}
+	
+	@RequestMapping(method=RequestMethod.DELETE, value="/{id}")
+	public ResponseEntity<String> deletarIngrediente(@PathVariable Long id) {
+		try {
+			ingredienteRepository.delete(id);
+			return new ResponseEntity<String>(HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/{id}")
+	@ResponseBody
+	public Ingrediente buscarIngrediente(@PathVariable Long id) {
+		Ingrediente ingrediente = ingredienteRepository.findOne(id);
+		return ingrediente;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

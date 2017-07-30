@@ -4,20 +4,25 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div class="modal fade" id="modal-ingrediente" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-pizza" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<form id="form-ingrediente" method="post">
+			<form id="form-pizza" method="post">
+			
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Informações do Ingrediente</h4>
+					<h4 class="modal-title">Informações da Pizza</h4>
 				</div>
+				
 				<div class="modal-body">
 				
 					<label for="name">Nome: </label>
 					<input id="nome" name="nome" class="form-control" />
+					
+					<label for="preco">Preço: </label>
+					<input id="preco" name="preco" class="form-control" />
 					
 					<label for="categoria">Categoria: </label>
 					<select id="categoria" name="categoria" class="form-control">
@@ -26,13 +31,23 @@
 						</c:forEach>
 					</select>
 					
+					<label for="ingredientes">Ingrediente: </label>
+					<select id="ingredientes" name="ingredientes" class="form-control" multiple="multiple">
+						<c:forEach items="${ingredientes}" var="ingrediente">
+							<option value="${ingrediente.id}">${ingrediente.nome}</option>
+						</c:forEach>
+					</select>
+					
 					<input id="id" name="id" type="hidden"/>
+					<input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}">
 				
 				</div>
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 					<button id="btn-salvar" type="button" class="btn btn-primary">Salvar</button>
 				</div>
+				
 			</form>
 			
 		</div>
