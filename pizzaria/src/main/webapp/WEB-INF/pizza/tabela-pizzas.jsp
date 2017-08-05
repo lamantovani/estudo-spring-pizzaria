@@ -33,8 +33,8 @@
 						${ingrediente.nome}
 					</c:forEach>
 				</td>
-				<td><button id="btn-editar" type="button" class="btn btn-warning btn-editar" >Editar</button></td>
-				<td><button id="btn-deletar" type="button" class="btn btn-danger btn-deletar" >Deletar</button></td>
+				<td><button id="btn-editar" type="button" class="btn btn-warning btn-editar" ><spring:message code="views.table.colunas.editar"/></button></td>
+				<td><button id="btn-deletar" type="button" class="btn btn-danger btn-deletar" ><spring:message code="views.table.colunas.deletar"/></button></td>
 			</tr>
 		</c:forEach>
 
@@ -42,13 +42,13 @@
 	<tfoot>
 		<tr>
 			<td colspan="7">
-				Pizzas cadastradas <span id="quantidade-pizzas">${pizzas.size()}</span>
+				<spring:message code="views.table.footer.quantidade-pizzas"/> <span id="quantidade-pizzas">${pizzas.size()}</span>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="7">
 				<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modal-pizza">
-					Cadastrar Pizza
+					<spring:message code="views.table.colunas.cadastrar"/>
 				</button>
 			</td>
 		</tr>

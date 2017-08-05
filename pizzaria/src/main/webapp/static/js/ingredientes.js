@@ -39,7 +39,7 @@ var aplicarListeners = function() {
 			'click',
 			function() {
 				var id = $(this).parents('tr').data('id');
-				var csrf = $('#csrf').val();
+				var csrf = $('#_csrf').val();
 
 				$.ajax({
 					url : "ingredientes/" + id,
