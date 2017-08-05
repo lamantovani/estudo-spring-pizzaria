@@ -27,6 +27,7 @@
 					</select>
 					
 					<input id="id" name="id" type="hidden"/>
+					<input type="hidden" id="_csrf" name="_csrf" value="${_csrf.token}">
 				
 				</div>
 				<div class="modal-footer">

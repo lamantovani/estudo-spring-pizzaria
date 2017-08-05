@@ -29,7 +29,7 @@ public class Application implements WebApplicationInitializer  {
 		serviletContext.addListener(new ContextLoaderListener(webApplicationContext));
 		
 		FilterRegistration.Dynamic filter = serviletContext.addFilter("openEntityManagerFilter", buildOpenEntityManagerFiler());
-		filter.addMappingForUrlPatterns(getDispacherType(), false, "/app/*");
+		filter.addMappingForUrlPatterns(getDispacherType(), false, "/*");
 		
 	}
 	
