@@ -24,7 +24,7 @@ public class Application implements WebApplicationInitializer  {
 		
 		Dynamic appServlet = serviletContext.addServlet("appServlet", new DispatcherServlet(webApplicationContext));
 		appServlet.setLoadOnStartup(1);
-		appServlet.addMapping("/app/*");
+		appServlet.addMapping("/");
 		
 		serviletContext.addListener(new ContextLoaderListener(webApplicationContext));
 		

@@ -15,28 +15,41 @@
 		<style type="text/css">
 			@import url("${path}/static/bootstrap/css/bootstrap.min.css");
 			@import url("${path}/static/bootstrap/css/bootstrap-theme.min.css");
+			
+			#btn-buscar{
+				margin-top: 25px;
+			}
 		</style>
 		
 		<script type="text/javascript" src="${path}/static/js/jquery-3.2.1.js"></script>
 		<script type="text/javascript" src="${path}/static/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="${path}/static/js/pizzas.js"></script>
+		<script type="text/javascript" src="${path}/static/js/pizzarias.js"></script>
 	</head>
 	<body>
 		<div class="container">
 			<jsp:include page="../menu-cliente.jsp"></jsp:include>
 		
-		<section>
-			<div id="consulta-pizzarias" class="well">
-				<label for="pizza_pesquisa">Que pizza você quer comer hoje?</label>
-				<select id="pizza-pesquisa" class="form-control">
-					<c:forEach items="${nomesPizzas}" var="nomePizza">
-						<option value="${nomePizza}">${nomePizza}</option>
-					</c:forEach>		
-				</select>
-			</div>
-			
-			<div id="secao-pizzarias"></div>
-		</section>	
+			<section>
+				<div id="consulta-pizzarias" class="well">
+					<div class="row">
+						<div class="col-sm-4">
+							<label for="pizza_pesquisa">Que pizza você quer comer hoje?</label>
+							<select id="pizza_pesquisa" class="form-control">
+								<c:forEach items="${nomesPizzas}" var="nomePizza">
+									<option value="${nomePizza}">${nomePizza}</option>
+								</c:forEach>		
+							</select>
+						</div>	
+						<div class="col-sm-4">
+							<button id="btn-buscar" class="btn btn-primary">Buscar Pizzarias</button>
+						</div>			
+					</div>
+				</div>
+				
+				<div id="secao-pizzarias">
+					<%-- <jsp:include page="tabela-pizzarias.jsp"></jsp:include> --%>
+				</div>
+			</section>	
 		</div>
 	
 	</body>

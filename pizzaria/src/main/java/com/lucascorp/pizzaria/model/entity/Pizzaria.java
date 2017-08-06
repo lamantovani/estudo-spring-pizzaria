@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,43 +35,33 @@ public class Pizzaria implements UserDetails {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private String login;
+	@Embedded
+	@NotNull
+	private Usuario usuario;
 	
-	private String senha;
-	
+	@NotNull @NotEmpty
 	private String nome;
 	
+	@NotNull
 	private Calendar dataCadastro;
 	
+	@NotNull @NotEmpty
 	private String endereco;
 	
 	@ElementCollection
-	private Set<String> email;
+	private Set<String> emails;
 	
 	@ElementCollection
-	private Set<String> telefone;
+	private Set<String> telefones;
 	
 	@ManyToMany(fetch=FetchType.EAGER)
 	private Set<Permissao> permissoes;
+	
+	@OneToMany(mappedBy = "dono")
+	private Set<Pizza> pizzas;
 
 	public Long getId() {
 		return id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 	public void setId(Long id) {
@@ -106,27 +100,43 @@ public class Pizzaria implements UserDetails {
 		this.endereco = endereco;
 	}
 
-	public Set<String> getEmail() {
-		return email;
+	public Set<String> getEmails() {
+		return emails;
 	}
 
-	public void setEmail(Set<String> email) {
-		this.email = email;
+	public void setEmails(Set<String> emails) {
+		this.emails = emails;
 	}
 
-	public Set<String> getTelefone() {
-		return telefone;
+	public Set<String> getTelefones() {
+		return telefones;
 	}
 
-	public void setTelefone(Set<String> telefone) {
-		this.telefone = telefone;
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+	
+	public Set<Pizza> getPizzas() {
+		return pizzas;
+	}
+
+	public void setPizzas(Set<Pizza> pizzas) {
+		this.pizzas = pizzas;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((usuario.getLogin() == null) ? 0 : usuario.getLogin().hashCode());
 		return result;
 	}
 
@@ -139,10 +149,10 @@ public class Pizzaria implements UserDetails {
 		if (getClass() != obj.getClass())
 			return false;
 		Pizzaria other = (Pizzaria) obj;
-		if (login == null) {
-			if (other.login != null)
+		if (usuario.getLogin() == null) {
+			if (other.getUsuario().getLogin() != null)
 				return false;
-		} else if (!login.equals(other.login))
+		} else if (!usuario.getLogin().equals(other.getUsuario().getLogin()))
 			return false;
 		return true;
 	}
@@ -161,13 +171,13 @@ public class Pizzaria implements UserDetails {
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
-		return senha;
+		return usuario.getSenha();
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return login;
+		return usuario.getLogin();
 	}
 
 	@Override

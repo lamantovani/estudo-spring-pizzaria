@@ -1,5 +1,7 @@
 package com.lucascorp.pizzaria.model.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
@@ -22,6 +24,10 @@ public class ServicoPizzaria {
 		if (authentication == null) throw new AuthenticationCredentialsNotFoundException("Usuário não logado");
 		UserDetails usuarioLogado = (UserDetails) authentication.getPrincipal();
 		return pizzariaRepository.findOneByLogin(usuarioLogado.getUsername());
+	}
+
+	public List<Pizzaria> listarPizzariasQueContem(String nomePizza) {
+		return pizzariaRepository.listarPizzariasQueContem(nomePizza);
 	}
 
 }
