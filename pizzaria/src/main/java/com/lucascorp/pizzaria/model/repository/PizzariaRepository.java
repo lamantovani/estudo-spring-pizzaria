@@ -4,12 +4,12 @@ package com.lucascorp.pizzaria.model.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.lucascorp.pizzaria.model.entity.Usuario;
+import com.lucascorp.pizzaria.model.entity.Pizzaria;
 
 @Repository
-public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
+public interface PizzariaRepository extends CrudRepository<Pizzaria, Long> {
 
-	public Usuario findOneByLogin(String login);
+	public Pizzaria findOneByLogin(String login);
 	
 	
 }

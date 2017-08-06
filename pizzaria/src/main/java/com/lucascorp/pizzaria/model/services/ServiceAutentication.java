@@ -6,13 +6,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.lucascorp.pizzaria.model.repository.UsuarioRepository;
+import com.lucascorp.pizzaria.model.repository.PizzariaRepository;
 
 @Service
 public class ServiceAutentication implements UserDetailsService{
 	
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private PizzariaRepository usuarioRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {

@@ -8,7 +8,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,7 +22,7 @@ public class Pizza {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id;
+	private Long id;
 	
 	@NotNull
 	@NotEmpty
@@ -35,13 +37,17 @@ public class Pizza {
 
 	@ManyToMany
 	private Set<Ingrediente> ingredientes;
+	
+	@ManyToOne
+	@JoinColumn(name="DONO")
+	private Pizzaria dono;
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -76,12 +82,20 @@ public class Pizza {
 		this.ingredientes = ingredientes;
 	}
 
+	public Pizzaria getDono() {
+		return dono;
+	}
+
+	public void setDono(Pizzaria dono) {
+		this.dono = dono;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Id == null) ? 0 : Id.hashCode());
 		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
@@ -95,12 +109,12 @@ public class Pizza {
 		if (getClass() != obj.getClass())
 			return false;
 		Pizza other = (Pizza) obj;
-		if (Id == null) {
-			if (other.Id != null)
-				return false;
-		} else if (!Id.equals(other.Id))
-			return false;
 		if (categoria != other.categoria)
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
@@ -109,6 +123,5 @@ public class Pizza {
 			return false;
 		return true;
 	}
-
 	
 }
