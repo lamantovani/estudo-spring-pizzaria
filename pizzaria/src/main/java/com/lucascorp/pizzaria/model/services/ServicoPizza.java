@@ -1,5 +1,8 @@
 package com.lucascorp.pizzaria.model.services;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +38,17 @@ public class ServicoPizza {
 	public void remover(long id) {
 		Pizza pizza = this.buscar(id);
 		if(pizza != null) repositorio.delete(pizza);
+	}
+
+	public List<String> listarNomePizzasDisponiveis() {
+		List<Pizza> pizzas = repositorio.findAll();
+		
+		List<String> nomesPizzarias = pizzas.stream().map((pizza) ->{
+			return pizza.getNome();
+		}).sorted().collect(Collectors.toList());
+		
+		return nomesPizzarias;
+		
 	}
 	
 }

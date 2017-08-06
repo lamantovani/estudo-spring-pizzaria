@@ -23,7 +23,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<jsp:include page="../menu.jsp"></jsp:include>
+			<jsp:include page="../menu-pizzaria.jsp"></jsp:include>
 			
 			<c:if test="${not empty mensagemErro}">
 				<div >
