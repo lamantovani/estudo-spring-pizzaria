@@ -1,5 +1,7 @@
 package com.lucascorp.pizzaria.controllers;
 
+import java.io.Serializable;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,12 @@ import com.lucascorp.pizzaria.model.services.ServicoPizza;
 
 @Controller
 @RequestMapping("/pizzas")
-public class PizzaController {
+public class PizzaController implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Autowired 
 	private IngredientesPropertyEditor ingredientePropertyEditor;
